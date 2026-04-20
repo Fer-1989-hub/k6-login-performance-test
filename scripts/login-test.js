@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { SharedArray } from 'k6/data';
 
-// Cargar usuarios desde CSV (ruta relativa correcta)
+// Cargar usuarios desde CSV
 const users = new SharedArray('users', function () {
   return open('../data/users.csv')
     .split('\n')
