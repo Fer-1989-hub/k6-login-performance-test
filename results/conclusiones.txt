@@ -1,0 +1,41 @@
+CONCLUSIONES DE LA PRUEBA DE CARGA – SERVICIO DE LOGIN
+
+A partir de la ejecución de la prueba de carga realizada con una duración de 10 minutos y un escenario progresivo hasta alcanzar 20 solicitudes por segundo (TPS), se obtienen las siguientes conclusiones:
+
+1. Cumplimiento parcial de los objetivos de rendimiento
+El sistema logró ejecutar la prueba bajo un esquema de carga escalonada, alcanzando una tasa de iteraciones cercana al objetivo definido. Sin embargo, el promedio real de procesamiento fue de aproximadamente 12.18 solicitudes por segundo, lo que indica que no se logró sostener completamente el objetivo de 20 TPS durante toda la ejecución.
+
+2. Tiempos de respuesta adecuados
+Los tiempos de respuesta del sistema se mantuvieron estables durante la prueba, con un promedio de 346 ms y un percentil 95 de 372 ms. Estos valores se encuentran dentro del umbral definido (< 1.5 segundos), lo que indica un buen desempeño en términos de latencia.
+
+3. Alta tasa de errores (hallazgo crítico)
+Se evidenció una tasa de error del 83.21%, superando ampliamente el umbral aceptable del 3%. Este resultado representa un problema crítico en el comportamiento del sistema, ya que la mayoría de las solicitudes no fueron procesadas correctamente.
+
+Adicionalmente, se observó que:
+- El 0% de las respuestas retornaron un estado HTTP 200.
+- Solo el 16% de las solicitudes lograron obtener un token válido.
+
+Esto indica que el sistema responde rápidamente, pero no de manera exitosa, lo cual compromete su funcionalidad.
+
+4. Incremento progresivo de usuarios sin garantía de éxito
+Durante la ejecución, el número de usuarios virtuales (VUs) aumentó progresivamente hasta aproximadamente 18 usuarios concurrentes. Esto confirma que la carga fue aplicada de forma controlada; sin embargo, el aumento de concurrencia no se tradujo en respuestas exitosas.
+
+5. Posible causa de los errores
+El alto porcentaje de fallos puede estar asociado a:
+- Uso de credenciales inválidas o inconsistentes
+- Restricciones del endpoint de autenticación
+- Validaciones internas del servicio (ej. bloqueo, rate limiting, autenticación fallida)
+- Limitaciones del entorno de prueba o del servicio externo utilizado
+
+6. Evaluación frente a criterios de aceptación
+- Tiempo de respuesta (< 1.5s): CUMPLE
+- Tasa de error (< 3%): NO CUMPLE
+- Objetivo de carga (20 TPS): NO CUMPLE completamente
+
+7. Conclusión general
+El sistema presenta un buen comportamiento en términos de tiempos de respuesta, pero falla críticamente en la correcta atención de las solicitudes. Esto indica que, aunque el rendimiento es adecuado, la confiabilidad del servicio es baja bajo condiciones de carga.
+
+8. Próximos pasos recomendados
+Se recomienda realizar una nueva prueba de carga utilizando únicamente credenciales válidas, con el fin de aislar el comportamiento del sistema y determinar si la alta tasa de errores está relacionada con la autenticación o con limitaciones propias del servicio bajo carga.
+
+Esta nueva prueba permitirá comparar resultados y obtener una evaluación más precisa del rendimiento real del sistema.

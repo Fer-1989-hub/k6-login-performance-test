@@ -1,0 +1,27 @@
+RESUMEN EJECUTIVO - PRUEBA DE CARGA LOGIN
+
+Se realizó una prueba de carga sobre el endpoint de autenticación utilizando k6, bajo un escenario de carga progresiva (ramp-up) durante 10 minutos, con un objetivo de hasta 20 solicitudes por segundo (TPS).
+
+RESULTADOS PRINCIPALES:
+
+* Total de requests: 7320
+* Tiempo promedio: 346 ms
+* Percentil 95: 372 ms
+* Requests por segundo: ~12.18
+* Tasa de error: 83.21%
+
+EVALUACIÓN:
+
+* ✔ Tiempo de respuesta: CUMPLE (menor a 1.5s)
+* ✖ Tasa de error: NO CUMPLE (mayor a 3%)
+* ✖ TPS objetivo: PARCIAL (no se alcanzan 20 TPS sostenidos)
+
+CONCLUSIÓN:
+
+El sistema presenta un comportamiento estable en términos de tiempos de respuesta, manteniéndose dentro de los umbrales definidos incluso bajo incremento progresivo de carga.
+
+Sin embargo, se evidencia una alta tasa de errores durante la ejecución, lo que indica que una proporción significativa de las solicitudes no es procesada correctamente.
+
+Este comportamiento sugiere que el sistema responde de manera eficiente en tiempo, pero no garantiza la correcta ejecución de las operaciones, afectando su confiabilidad bajo condiciones de carga.
+
+Se recomienda realizar una prueba adicional utilizando credenciales válidas, con el fin de aislar el comportamiento del sistema y obtener una evaluación más precisa de su rendimiento real.
